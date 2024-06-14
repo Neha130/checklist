@@ -1,6 +1,7 @@
 import subprocess 
 import json
 import os  # Import the os module to access environment variables
+import yaml 
 
 def get_kubectl_output(command):
     """Execute kubectl command and return JSON output."""
@@ -13,6 +14,7 @@ def get_kubectl_output(command):
 
 def get_service_monitors(namespace):
     """Fetch all ServiceMonitors in the specified namespace."""
+    #return  get_kubectl_output(["kubectl", "get", "servicemonitor", "-n", namespace, "-o", "json", "orchestrator", "kubelink", "casbin", "image-scanner", "git-sensor", "nats"])
     return get_kubectl_output(["kubectl", "get", "servicemonitor", "-n", namespace, "-o", "json"])
 
 def get_services(namespace):
@@ -100,4 +102,6 @@ def servicemonitorcheckmain(env):
 
 
 if __name__ == "__main__":
-    checkservicemetrics.servicemonitorcheckmain(env=env["servicemonitor"])
+    with open('env.yaml', 'r') as f:
+       env = yaml.safe_load(f)
+    servicemonitorcheckmain(env=env["servicemonitor"])
