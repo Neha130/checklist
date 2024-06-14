@@ -97,4 +97,6 @@ def servicemonitorcheckmain(env):
         print("\nCurl Errors:")
         for line in curl_errors:
             print(line)
-checkservicemetrics.servicemonitorcheckmain(env=env["servicemonitor"])
+            
+if __name__ == "__main__":
+    checkservicemetrics.servicemonitorcheckmain(env=env["servicemonitor"])
